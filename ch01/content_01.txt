@@ -1,0 +1,16 @@
+This repository is driven from book Ansible: up and run 
+2022 edition 
+
+In Ansibook's example, vagrant is used to create multiple VMs to simulate server clusters. 
+Vagrant configuration is Ruby based language. 
+Ansible playbook is python based language. 
+
+There are prerequisite such as vagrant or ssh key. Will add in later.
+
+ex_01
+use Ansible to install base package to a vagrant VM 
+
+commands.sh : commands of using playbook yaml files
+inventory/vagrant.ini : server info
+pb-python.yml : install python related
+pb-wp-pre.yml: install wordpress requisition : php, mysql, apache, (no configuration)
