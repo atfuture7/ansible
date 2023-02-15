@@ -7,10 +7,76 @@ Ansible playbook is python based language.
 
 There are prerequisite such as vagrant or ssh key. Will add in later.
 
-ex_01
-use Ansible to install base package to a vagrant VM 
+Create vagrant VM:
+config file: Vagrantfile
+command: 
+$ vagrant up
 
-commands.sh : commands of using playbook yaml files
-inventory/vagrant.ini : server info
-pb-python.yml : install python related
-pb-wp-pre.yml: install wordpress requisition : php, mysql, apache, (no configuration)
+Destroy vagrant VM(s), command:
+$ vagrant destroy
+
+
+
+In ch01, I use vagrant created 3 VMs with shared key to simplify the work. But you still need to specify a private key for ssh login. 
+In general situation, each vagrant vm owns its own private key, location would be
+.vagrant\machines\<VM name>\virtualbox\private_key
+If you use share key when creating vagrant VMs, the common key located in your home folder
+/home/<user name>/.vagrant.d/insecure_private_key
+
+If you'd like to check where the vagrant VM's key is, the command is
+$ vagrant ssh-config <vm name>
+
+
+pb-01-install-python.yml
+This playbook install some python3 packages. command:
+$ ansible-playbool -i inventory/hosts.ini pb-install-python3.yml 
+
+some definitions in ansible yaml file:
+- name : human friendly description
+become : root priviledge
+apt : ansible module 
+update_cache : if run apt update 
+cache_valid_time : within certain seconds, update_cache is taken as fresh, skip update
+pkg : package names
+
+pb-02-install-pip-pkg.yml
+This playbook use pip install python packages.
+
+var: ansible variables. <key>:<value>. 
+     '' is static string. "" can be variables. ie. "{{ ansible_env.HOME }}" 
+pip: ansible pip module 
+     state: the final status we want
+copy: ansible copy module 
+    src: souece from managing host 
+    dest: destination on guest machines
+    mode: chmod status
+
+pip wheel: 
+https://realpython.com/python-wheels/#wheels-make-things-go-fast
+
+detail of ansible pip install 
+https://adamtheautomator.com/ansible-pip/
+
+package setuptools is popular but troublesome. It will block ansible with error (Invalid version: '0.23ubuntu1' (package: distro-info))
+
+pb-03-pip-env.yml
+Same as pb-02, but under python virtual environment to prevent polution on system environment. When I use python pip, it usually install in my home directory (not /usr ) unless I specify otherwise. 
+
+ansible_env.HOME : ansible environment. You can find it on playbook folder with command 
+    $ ansible vagrant1 -m setup
+    Ansible will gather "facts" ( usually you can find "TASK [Gathering Facts]" on the second line when run playbool. This command will pull JOSN structure. You can find a specific structure:
+    "ansible_env": {
+        ...
+        "HOME": "/home/vagrant",
+        "LANG": ...
+
+    }
+pip:
+    virtualenv: specify the python virtual environment
+
+
+pb-04-pip-remove.yml
+Remove pip packages. Not always successful. Some are defined by python. Showing uninstalled but still able to be import. Showing still exists but already be removed ...
+
+pip:
+  status: absent
