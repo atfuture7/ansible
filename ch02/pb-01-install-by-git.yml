@@ -1,0 +1,21 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Install mezzanine from git
+  hosts: vagrant2
+
+  vars:
+    proj_name: 'mezzanine_example'
+    proj_path: "{{ ansible_env.HOME }}/mezzanine/{{ proj_name }}"
+    repo_url: git@192.168.10.16:linuxways.git
+
+  ### run this when you tun into permission problems:
+  # $ ssh-keygen -R 192.168.10.16
+  tasks:
+    - name: clone the repository on the host 
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ proj_path }}"
+        clone: yes        
+        update: yes
+
+...

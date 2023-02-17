@@ -2,15 +2,19 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   hosts=[
-    ["vagrant1", "ubuntu/focal64", 2222, 8080, 8443],
-    ["vagrant2", "ubuntu/focal64", 2200, 8081, 8444],
-    ["vagrant3", "centos/stream8", 2201, 8082, 8445]
+    ["vagrant1", "ubuntu/focal64", 2222, 8080, 8443, "192.168.10.16"],
+    ["vagrant2", "ubuntu/focal64", 2200, 8081, 8444, "192.168.10.17"],
+    ["vagrant3", "centos/stream8", 2201, 8082, 8445, "192.168.10.18"]
   ]
+  
+  # Use the same key for each machine
+  config.ssh.insert_key = false
 
   hosts.each { |data|
     config.vm.define data[0] do |node|
       node.vm.box = data[1]
       node.vm.hostname = data[0]
+      node.vm.network "private_network", ip: data[5]
       node.vm.network "forwarded_port", guest: 22, host: data[2], id: 'ssh'
       node.vm.network "forwarded_port", guest: 80, host: data[3], id: 'http'
       node.vm.network "forwarded_port", guest: 443, host: data[4], id: 'httpd'

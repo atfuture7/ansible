@@ -1,0 +1,10 @@
+authentication and repository setting are more troublesome than install and setting. 
+
+client need to paste its public key to master's authorized_hosts.
+https://atfuture.ca/wordpress/index.php/2023/02/15/ssh-auth-fix/ (big-5)
+
+if you're using embeded VM and access to git with port, ssh://ip:port/abs-path might be the only option. 
+https://atfuture.ca/wordpress/index.php/2023/02/16/build-a-git-server/
+
+For ansible, ssh-agent is helpful, but I haven't reach there yet. 
+

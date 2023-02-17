@@ -1,0 +1,40 @@
+Here are some useful commands during development
+
+Ansible: list all hosts
+$ ansible all --list-hosts
+
+
+Vagrant: check status
+vagrant status
+vagrant status vm_name
+
+Vagrant: check VM's ssh network
+vagrant ssh-config
+
+Vagrant: update VM box version
+vagrant box update vm_name
+
+run/create VM
+vagrant up VM_name
+
+
+vagrant config : setup private network
+config.vm.network "private_network", ip: "192.168.50.4"
+
+Host vagrant1
+Hostname 192.168.10.16
+User vagrant
+PubKeyAuthentication yes
+IdentityFile ./id_rsa.pub
+
+fix SSH Permission Denied (publickey,gssapi-keyex,gssapi-with-mic)
+https://stackoverflow.com/questions/36300446/ssh-permission-denied-publickey-gssapi-with-mic
+chage the setting of host sshd service 
+/etc/ssh/sshd_config 
+variable: PasswordAuthentication yes 
+
+How to ssh from vagrant VM host to vagrant VMs
+ex. vagrant machine : vagrant1
+$ vagrant ssh-config vagrant1 > vag_ssh_vagrant1
+$ ssh -F vag_ssh_vagrant1 vagrant1
+
