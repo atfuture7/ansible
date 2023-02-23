@@ -1,0 +1,16 @@
+---
+# tasks file for ins-essential
+- name: use a wrong value
+  debug:
+    msg: ”show the variable {{ var1 }}“
+
+- name: install tree
+  become: true
+  ansible.builtin.apt:
+    name: tree
+    state: present
+
+- name: 
+  debug:
+    msg: “{{ inventory_hostname }} complete all tasks"
+...

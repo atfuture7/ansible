@@ -1,0 +1,7 @@
+---
+# tasks file for ins-essential
+- name: install tree
+  ansible.builtin.include_tasks: main.1.yml
+
+- name: install remote desktop
+  ansible.builtin.include_tasks: main.2.yml

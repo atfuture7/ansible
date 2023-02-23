@@ -1,0 +1,6 @@
+---
+- name: test role structure
+  hosts: all
+  become_user: root
+  roles:
+    - ins-essential
