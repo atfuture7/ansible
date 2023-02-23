@@ -1,0 +1,23 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: test debugger
+  hosts: test
+  become_user: root
+  gather_facts: false
+  vars:
+    var1: value1
+  tasks:
+    - name: use a wrong value
+      debug:
+        msg: ”show the variable {{ var1 }}“
+    
+    - name: install tree
+      become: true
+      ansible.builtin.apt:
+        name: tree
+        state: present
+
+    - name: 
+      debug:
+        msg: “{{ inventory_hostname }} complete all tasks"
+...
