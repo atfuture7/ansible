@@ -1,0 +1,13 @@
+---
+# tasks file for desktopins
+
+# install ubuntu remote desktop
+
+- name: Install Ubuntu remote desktop
+  become: true
+  ansible.builtin.apt:
+    pkg: 
+      - remmina
+      - remmina-plugin-vnc
+    state: present
+
