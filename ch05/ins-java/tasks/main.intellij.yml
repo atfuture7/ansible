@@ -1,0 +1,39 @@
+---
+# install intellij
+# ref: https://www.jetbrains.com/help/idea/installation-guide.html#standalone
+# ref: https://github.com/nagygergo/jetbrains-toolbox-install/blob/master/jetbrains-toolbox.sh
+- name: Task title- intellij
+  debug:
+    msg: start task intelliJ
+
+# if check if the ln already exist
+- name: check if file ln already exists
+  ansible.builtin.stat:
+    path: '/usr/local/bin/idea.sh'
+  register: intellij_st
+
+- name: unarchive package to /opt
+  ansible.builtin.unarchive:
+    src: "{{ intellij_ins }}"
+    dest: /opt
+  when: not intellij_st.stat.exists
+
+- name: create symbolic link
+  ansible.builtin.file:
+    src: "{{ intellij_path }}/bin/idea.sh"
+    dest: /usr/local/bin/idea.sh
+    state: link
+    mode: '0755'
+
+- name: copy icon to install folder
+  ansible.builtin.copy:
+    src: "{{ intellij_icon }}"
+    dest: "{{ intellij_path }}"
+    mode: '0755'  
+
+# create shortcut in menu  
+- name: copy shortcut setting to target machine
+  ansible.builtin.copy:
+    src: "{{ intellij_menu }}"
+    dest: "/usr/share/applications/{{ intellij_menu }}"
+    mode: '0755'

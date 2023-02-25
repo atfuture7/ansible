@@ -1,2 +1,3 @@
 ---
 # vars file for ins-essential
+role_var1: content defiled in role/vars/main.yml

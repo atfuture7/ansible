@@ -1,41 +1,17 @@
 ---
-# tasks file for ins-java
-- name: debug stop
+# tasks - Test debug and install tree. 
+# req: var1 defined in default/
+- name: use a wrong value
   debug:
-    msg: debug stop 1
+    msg: ”show the variable {{ role_var1 }}“
 
-- name: install eclipse via snapd
-  community.general.snap:
-    name: eclipse
-    classic: true
+- name: install tree
+  become: true
+  ansible.builtin.apt:
+    name: tree
+    state: present
 
-#- name: check if file already downloaded
-#  ansible.builtin.stat:
-#    path: '/tmp/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz'
-#  register: cpp_tar
-
-#- name: download eclipse cpp package
-#  ansible.builtin.get_url:
-#    url: 'https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2022-12/R/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz&mirror_id=1281'
-#    dest: '/tmp/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz'
-#    mode: '0755'
-#  when: not cpp_tar.stat.exists
-
-- name: unarchive package to /opt
-  ansible.builtin.unarchive:
-    src: eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz
-#    remote_src: true
-    dest: /opt
-
-- name: create symbolic link
-  ansible.builtin.file:
-    src: /opt/eclipse/eclipse
-    dest: /usr/local/bin/eclipse
-    state: link
-    mode: '0755'
-
-- name: copy shortcut setting to target machine
-  ansible.builtin.copy:
-    src: eclipse.desktop
-    dest: /usr/share/applications/eclipse.desktop
-    mode: '0755'
+- name: 
+  debug:
+    msg: “{{ inventory_hostname }} complete all tasks"
+...

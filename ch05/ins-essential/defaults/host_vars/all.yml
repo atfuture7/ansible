@@ -1,3 +1,3 @@
 ---
 # defaults file for ins-essential
-role_var1: var used by role
+var1: var for all hosts

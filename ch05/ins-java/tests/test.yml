@@ -1,0 +1,6 @@
+---
+- name: Install openjdk19 in Ubuntu
+  hosts: all
+  remote_user: root
+  roles:
+    - ins-java

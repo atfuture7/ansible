@@ -1,0 +1,8 @@
+---
+# defaults file for ins-java
+eclipse_ins: eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz
+eclipse_cpp_menu: eclipse.desktop
+intellij_ins: ideaIC-2022.3.2.tar.gz
+intellij_path: "/opt/idea-IC-223.8617.56"
+intellij_icon: intellij_icon.xpm
+intellij_menu: intellij.desktop

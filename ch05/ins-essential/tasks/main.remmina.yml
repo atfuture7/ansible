@@ -1,7 +1,9 @@
 ---
-# tasks file for desktopins
-
 # install ubuntu remote desktop
+# when use include_tasks, task name in included files won't appear. debug helps
+- name: Show debug message
+  debug:
+    msg: ”task remmina -- remote login tool, also can be used as ubuntu RDP“
 
 - name: Install Ubuntu remote desktop
   become: true

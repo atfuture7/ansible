@@ -1,0 +1,52 @@
+---
+# tasks install eclipse 
+- name: task title
+  debug:
+    msg: install eclipse java and c++
+
+# install eclipse with snap
+- name: install eclipse via snapd
+  community.general.snap:
+    name: eclipse
+    classic: true
+  tags:
+    - desktop
+
+# download eclipse c++ package
+#- name: check if file already downloaded
+#  ansible.builtin.stat:
+#    path: "/tmp/{{ eclipse_ins }}"
+#  register: cpp_tar
+
+#- name: download eclipse cpp package
+#  ansible.builtin.get_url:
+#    url: 'https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2022-12/R/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz&mirror_id=1281'
+#    dest: "/tmp/{{ eclipse_ins }}"
+#    mode: '0755'
+#  when: not cpp_tar.stat.exists
+
+- name: unarchive package to /opt
+  ansible.builtin.unarchive:
+    src: "{{ eclipse_ins }}"
+#    remote_src: true
+    dest: /opt
+  tags:
+    - desktop
+
+- name: create symbolic link
+  ansible.builtin.file:
+    src: /opt/eclipse/eclipse
+    dest: /usr/local/bin/eclipse
+    state: link
+    mode: '0755'
+  tags:
+    - desktop
+
+# create shortcut in menu for eclipse c++
+- name: copy shortcut setting to target machine
+  ansible.builtin.copy:
+    src: "{{ eclipse_cpp_menu }}"
+    dest: "/usr/share/applications/{{ eclipse_cpp_menu }}"
+    mode: '0755'
+  tags:
+    - desktop

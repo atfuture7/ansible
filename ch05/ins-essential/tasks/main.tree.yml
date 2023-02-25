@@ -1,8 +1,9 @@
 ---
-# tasks file for ins-essential
-- name: use a wrong value
+# tasks Test debug and install tree. 
+# where Ansible find variables, please check README.md Requirements
+- name: Show debug message
   debug:
-    msg: ”show the variable {{ var1 }}“
+    msg: ”task-tree show the variable {{ role_var1 }}“
 
 - name: install tree
   become: true
@@ -10,7 +11,7 @@
     name: tree
     state: present
 
-- name: 
+- name: show current host name on this task
   debug:
     msg: “{{ inventory_hostname }} complete all tasks"
 ...

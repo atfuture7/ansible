@@ -1,9 +1,10 @@
 ---
 # tasks file for ins-java
-- name: debug stop
+- name: task title - install jdk
   debug:
-    msg: debug stop 1
+    msg: start install openjdk 19
 
+# apt key is for apt_repository
 - name: ensure apt-key exists
   ansible.builtin.apt:
     pkg: add-apt-key

@@ -1,9 +1,9 @@
 ---
 - name: test role structure
-  hosts: localhost
+  hosts: all
   gather_facts: false
   become: true 
 
   roles:
-    #- ins-essential
+    - ins-essential
     - ins-java

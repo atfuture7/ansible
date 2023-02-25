@@ -1,0 +1,12 @@
+---
+all:
+  hosts:
+  children:
+    server:
+      hosts:
+        127.0.0.1:
+          name: localhost
+        10.0.0.162:
+    desk:
+      hosts:
+        10.0.0.27:

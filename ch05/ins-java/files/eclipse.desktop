@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version = 2022-12
+Type = Application
+Terminal = false
+Name = Eclipse C/C++
+Exec = /usr/local/bin/eclipse
+Icon = /opt/eclipse/icon.xpm
+Categories = Applicaion;

@@ -1,0 +1,22 @@
+#!/etc/ansible/ansible-playbook
+---
+# copy shell script to guest machine and display the output
+- name: Transfer and execute a script.
+  hosts: Labs
+  become_user: csadmin
+
+  tasks:
+  - name: copy to home
+    copy:
+      src: testid.sh
+      dest: ~/testid.sh
+      mode: '0744'
+
+  - name: test shell file
+    shell: ~/testid.sh
+    register: shell_result
+
+  - debug:
+      var: shell_result.stdout_lines
+
+...

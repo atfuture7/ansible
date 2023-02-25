@@ -1,31 +1,56 @@
-Role Name
+ins-essential
 =========
 
-A brief description of the role goes here.
+Essential installarion put here. 
+main control: ins-essential/test/test-all.yml
+role: ins-essential/test/test.yml 
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+put host list (inventory.yml) in ins-essential/defaults/
+ansible-playbool -i ins-essential/defaults/ Ansible will include all inventory files. 
+expand ansible supported default folders in where inventory files located. 
+define host related variables in host_vars/hostname.yml
+define group related variables in group_vars/groupname.yml
+ref. https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html
+ref. https://www.adaltas.com/en/2022/03/15/ansible-variables/
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Role variables are set in default/main.yml , vars/main.yml 
+Inventory defalut variable: check previous section: Requirements
+if need dynamic include, vars_file: for playbook, module include_vars: for tasks
+ref. https://www.toptechskills.com/ansible-tutorials-courses/ansible-include-import-variables-tutorial-examples/
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No. This role should be self-content
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+On the uper level of ins-essential, 
+command: ansible-playbook ins-essential/tests/test.yml
+
+In test.yml
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - ins-essential
+
+
+useful commands: 
+ansible-galaxy init :role:
+ansible-playbook playbook.yml -t inventory-fl-fd -K --check -vvv
+-K ask for become pass
+--check dry run
+-vvv debug mode
+--syntax-check
 
 License
 -------
@@ -35,4 +60,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+LinkedIn: Jia jia Tang
