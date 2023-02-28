@@ -1,0 +1,25 @@
+---
+# install google chrome
+# when use include_tasks, task name in included files won't appear. debug helps
+- name: Show debug message
+  debug:
+    msg: ”task chrome“
+
+# if check if the ln already exist
+- name: check if file ln already exists
+  ansible.builtin.stat:
+    path: "{{ chrome_menu }}"
+  register: chrome_st
+
+# copy installation file to target machine
+- name: copy installation .deb file to target machine
+  ansible.builtin.copy:
+    src: "{{ ins_chrome }}"
+    dest: "/tmp/{{ ins_chrome }}"
+    mode: '0755'
+  when: not chrome_st.stat.exists
+
+- name: Install Chrome
+  ansible.builtin.apt:
+    deb: "/tmp/{{ ins_chrome }}"
+    state: present
