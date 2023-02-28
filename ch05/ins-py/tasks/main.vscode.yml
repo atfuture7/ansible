@@ -1,0 +1,27 @@
+---
+# install blueJ
+
+- name: task title -- vs code
+  debug:
+    msg: start task VS code
+
+# if check if the ln already exist
+- name: check if file ln already exists
+  ansible.builtin.stat:
+    path: "/tmp/{{ ins_vscode }}"
+  register: vscode_st
+
+# create shortcut in menu  
+- name: copy installation .deb file to target machine
+  ansible.builtin.copy:
+    src: "{{ ins_vscode }}"
+    dest: "/tmp/{{ ins_vscode }}"
+    mode: '0755'
+  when: not vscode_st.stat.exists
+    
+# use dpkg to install .deb file
+- name: install vscode_st
+  ansible.builtin.apt:
+    deb: "/tmp/{{ ins_vscode }}"
+    state: present
+  

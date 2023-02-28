@@ -1,0 +1,34 @@
+---
+# install blueJ
+
+- name: task title -- blueJ
+  debug:
+    msg: start task blueJ
+
+# openjdk nad libopenjfx-java should be installed
+- name: mask sure libopenjfx-java exists
+  ansible.builtin.apt:
+    pkg: 
+      - libopenjfx-java
+    state: present
+
+# if check if the ln already exist
+- name: check if file ln already exists
+  ansible.builtin.stat:
+    path: "/tmp/{{ ins_bluej }}"
+  register: bluej_st
+
+# copy installation file to target machine
+- name: copy installation .deb file to target machine
+  ansible.builtin.copy:
+    src: "{{ ins_bluej }}"
+    dest: "/tmp/{{ ins_bluej }}"
+    mode: '0755'
+  when: not bluej_st.stat.exists
+    
+# use dpkg to install .deb file
+- name: install blueJ
+  ansible.builtin.apt:
+    deb: "/tmp/{{ ins_bluej }}"
+    state: present
+  
