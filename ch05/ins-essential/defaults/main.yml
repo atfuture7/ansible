@@ -1,3 +1,6 @@
 ---
 # defaults file for ins-essential
-role_var1: var used by role
+role_var1: var used by role #test
+
+ins_chrome: google-chrome-stable_current_amd64.deb
+chrome_menu: /usr/share/applications/google-chrome.desktop
