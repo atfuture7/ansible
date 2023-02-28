@@ -1,0 +1,12 @@
+---
+# install ubuntu remote desktop
+# when use include_tasks, task name in included files won't appear. debug helps
+- name: Show debug message
+  debug:
+    msg: ”task install IDLE for python“
+
+- name: Install Ubuntu remote desktop
+  become: true
+  ansible.builtin.apt:
+    pkg: idle3
+    state: present

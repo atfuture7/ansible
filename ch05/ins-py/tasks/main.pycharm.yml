@@ -1,0 +1,40 @@
+---
+# install pycharm
+# ref: https://www.jetbrains.com/help/pycharm/installation-guide.html#144b4d99
+# PyCharm and IntelliJ came from the same company, same installation
+
+- name: Task title- PyCharm
+  debug:
+    msg: start task PyCharm
+
+# if check if the ln already exist
+- name: check if file ln already exists
+  ansible.builtin.stat:
+    path: '/usr/local/bin/pycharm.sh'
+  register: pycharm_st
+
+- name: unarchive package to /opt
+  ansible.builtin.unarchive:
+    src: "{{ pycharm_ins }}"
+    dest: /opt
+  when: not pycharm_st.stat.exists
+
+- name: create symbolic link
+  ansible.builtin.file:
+    src: "{{ pycharm_path }}/bin/pycharm.sh"
+    dest: /usr/local/bin/pycharm.sh
+    state: link
+    mode: '0755'
+
+- name: copy icon to install folder
+  ansible.builtin.copy:
+    src: "{{ pycharm_icon }}"
+    dest: "{{ pycharm_path }}"
+    mode: '0755'  
+
+# create shortcut in menu  
+- name: copy shortcut setting to target machine
+  ansible.builtin.copy:
+    src: "{{ pycharm_menu }}"
+    dest: "/usr/share/applications/{{ pycharm_menu }}"
+    mode: '0755'
