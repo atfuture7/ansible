@@ -2,51 +2,53 @@
 # tasks install eclipse 
 - name: task title
   debug:
-    msg: install eclipse java and c++
+    msg: install eclipse java 
 
 # install eclipse with snap
-- name: install eclipse via snapd
-  community.general.snap:
-    name: eclipse
-    classic: true
-  tags:
-    - desktop
+# No SNAP decided. 
+#- name: install eclipse via snapd
+#  community.general.snap:
+#    name: eclipse
+#    classic: true
+#  tags:
+#    - desktop
 
-# download eclipse c++ package
-#- name: check if file already downloaded
-#  ansible.builtin.stat:
-#    path: "/tmp/{{ eclipse_ins }}"
-#  register: cpp_tar
-
-#- name: download eclipse cpp package
-#  ansible.builtin.get_url:
-#    url: 'https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2022-12/R/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz&mirror_id=1281'
-#    dest: "/tmp/{{ eclipse_ins }}"
-#    mode: '0755'
-#  when: not cpp_tar.stat.exists
+# download eclipse java package
+- name: check if file already downloaded
+  ansible.builtin.stat:
+    path: "/usr/share/applications/{{ eclipse_java_menu }}"
+  register: cpp_tar
 
 - name: unarchive package to /opt
   ansible.builtin.unarchive:
-    src: "{{ eclipse_ins }}"
+    src: "{{ eclipse_java_ins }}"
 #    remote_src: true
     dest: /opt
+  when: not cpp_tar.stat.exists
   tags:
     - desktop
+# move away form default, or it will overlap with other eclipse projects
+- name: move rename folder with postfix 
+  shell: "mv /opt/eclipse/ /opt/{{ eclipse_java_path }}/"
 
 - name: create symbolic link
   ansible.builtin.file:
-    src: /opt/eclipse/eclipse
-    dest: /usr/local/bin/eclipse
+    src: /opt/{{ eclipse_java_path }}/eclipse
+    dest: "/usr/local/bin/{{ eclipse_java_exec }}"
     state: link
     mode: '0755'
   tags:
     - desktop
 
 # create shortcut in menu for eclipse c++
-- name: copy shortcut setting to target machine
-  ansible.builtin.copy:
-    src: "{{ eclipse_cpp_menu }}"
-    dest: "/usr/share/applications/{{ eclipse_cpp_menu }}"
+- name: copy template to guest
+  ansible.builtin.template:
+    src: "{{ eclipse_java_menu }}.j2"
+    #dest: "/usr/share/applications/{{ eclipse_cpp_menu }}"
+    dest: "/opt/{{ eclipse_java_path }}/{{ eclipse_java_menu }}"
     mode: '0755'
   tags:
     - desktop
+
+- name: install desktop shortcut 
+  shell: "desktop-file-install /opt/{{ eclipse_java_path }}/{{ eclipse_java_menu }}"

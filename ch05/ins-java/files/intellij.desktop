@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version = 223
-Type = Application
-Terminal = false
-Name = IntelliJ IDEA
-Exec = /usr/local/bin/idea.sh
-Icon = /opt/idea-IC-223.8617.56/intellij_icon.xpm
-Categories = Applicaion;

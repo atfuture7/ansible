@@ -15,20 +15,20 @@
 # if check if the ln already exist
 - name: check if file ln already exists
   ansible.builtin.stat:
-    path: "/tmp/{{ ins_bluej }}"
+    path: "/usr/share/applications/{{ bluej_menu }}"
   register: bluej_st
 
 # copy installation file to target machine
 - name: copy installation .deb file to target machine
   ansible.builtin.copy:
-    src: "{{ ins_bluej }}"
-    dest: "/tmp/{{ ins_bluej }}"
+    src: "{{ bluej_ins }}"
+    dest: "/tmp/{{ bluej_ins }}"
     mode: '0755'
   when: not bluej_st.stat.exists
     
 # use dpkg to install .deb file
 - name: install blueJ
   ansible.builtin.apt:
-    deb: "/tmp/{{ ins_bluej }}"
+    deb: "/tmp/{{ bluej_ins }}"
     state: present
   

@@ -3,38 +3,38 @@
 # ref: https://www.jetbrains.com/help/pycharm/installation-guide.html#144b4d99
 # PyCharm and IntelliJ came from the same company, same installation
 
-- name: Task title- PyCharm
+- name: Task title- Clion
   debug:
-    msg: start task PyCharm
+    msg: start task Clion
 
 # if check if the ln already exist
 - name: check if file ln already exists
   ansible.builtin.stat:
-    path: "/usr/local/bin/{{ pycharm_exec }}"
-  register: pycharm_st
+    path: '/usr/local/bin/{{ clion_exec }}'
+  register: clion_st
 
 - name: unarchive package to /opt
   ansible.builtin.unarchive:
-    src: "{{ pycharm_ins }}"
+    src: "{{ clion_ins }}"
     dest: /opt
-  when: not pycharm_st.stat.exists
+  when: not clion_st.stat.exists
 
 - name: create symbolic link
   ansible.builtin.file:
-    src: "/opt/{{ pycharm_path }}/bin/{{ pycharm_exec }}"
-    dest: "/usr/local/bin/{{ pycharm_exec }}"
+    src: "/opt/{{ clion_path }}/bin/{{ clion_exec }}"
+    dest: "/usr/local/bin/{{ clion_exec }}"
     state: link
     mode: '0755'
 
-# create shortcut in menu for intellij
+
+# create shortcut in menu for clion
 - name: copy template to guest
   ansible.builtin.template:
-    src: "{{ pycharm_menu }}.j2"
-    dest: "/opt/{{ pycharm_path }}/{{ pycharm_menu }}"
+    src: "{{ clion_menu }}.j2"
+    dest: "/opt/{{ clion_path }}/{{ clion_menu }}"
     mode: '0755'
   tags:
     - desktop
 
 - name: install desktop shortcut 
-  shell: "desktop-file-install /opt/{{ pycharm_path }}/{{ pycharm_menu }}"
-
+  shell: "desktop-file-install /opt/{{ clion_path }}/{{ clion_menu }}"

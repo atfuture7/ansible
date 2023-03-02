@@ -1,0 +1,52 @@
+---
+# tasks install eclipse 
+- name: task title
+  debug:
+    msg: Install eclipse and c++
+
+# download eclipse c++ package
+- name: check if file already downloaded
+  ansible.builtin.stat:
+    path: "/usr/share/applications/{{ eclipse_cpp_menu }}"
+  register: cpp_tar
+
+#- name: download eclipse cpp package
+#  ansible.builtin.get_url:
+#    url: 'https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2022-12/R/eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz&mirror_id=1281'
+#    dest: "/tmp/{{ eclipse_ins }}"
+#    mode: '0755'
+#  when: not cpp_tar.stat.exists
+
+- name: unarchive package to /opt
+  ansible.builtin.unarchive:
+    src: "{{ eclipse_cpp_ins }}"
+#    remote_src: true
+    dest: /opt
+  when: not cpp_tar.stat.exists
+  tags:
+    - desktop
+# move away form default, or it will overlap with other eclipse projects
+- name: move rename folder with postfix 
+  shell: "mv /opt/eclipse/ /opt/{{ eclipse_cpp_path }}/"
+
+- name: create symbolic link
+  ansible.builtin.file:
+    src: /opt/{{ eclipse_cpp_path }}/eclipse
+    dest: "/usr/local/bin/{{ eclipse_cpp_exec }}"
+    state: link
+    mode: '0755'
+  tags:
+    - desktop
+
+# create shortcut in menu for eclipse c++
+- name: copy template to guest
+  ansible.builtin.template:
+    src: "{{ eclipse_cpp_menu }}.j2"
+    #dest: "/usr/share/applications/{{ eclipse_cpp_menu }}"
+    dest: "/opt/{{ eclipse_cpp_path }}/{{ eclipse_cpp_menu }}"
+    mode: '0755'
+  tags:
+    - desktop
+
+- name: install desktop shortcut 
+  shell: "desktop-file-install /opt/{{ eclipse_cpp_path }}/{{ eclipse_cpp_menu }}"

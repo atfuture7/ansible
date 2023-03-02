@@ -1,2 +1,12 @@
 ---
 # defaults file for ins-cpp
+eclipse_cpp_ins: eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz
+eclipse_cpp_path: eclipse_cpp
+eclipse_cpp_exec: eclipse_cpp
+eclipse_cpp_icon: icon.xpm
+eclipse_cpp_menu: eclipse_cpp.desktop
+clion_ins: CLion-2022.3.2.tar.gz
+clion_exec: clion.sh
+clion_path: clion-2022.3.2
+clion_menu: clion.desktop
+clion_icon: bin/clion.png

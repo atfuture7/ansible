@@ -3,4 +3,4 @@
   remote_user: hsadm
   become: yes
   roles:
-    - ins-java
+    - ins-apps

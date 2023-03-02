@@ -1,9 +1,19 @@
 ---
 # defaults file for ins-java
-eclipse_ins: eclipse-cpp-2022-12-R-linux-gtk-x86_64.tar.gz
-eclipse_cpp_menu: eclipse.desktop
+eclipse_java_ins: eclipse-java-2022-12-R-linux-gtk-x86_64.tar.gz
+eclipse_java_path: eclipse_java
+eclipse_java_exec: eclipse_java
+eclipse_java_icon: icon.xpm
+eclipse_java_menu: eclipse_java.desktop
 intellij_ins: ideaIC-2022.3.2.tar.gz
-intellij_path: "/opt/idea-IC-223.8617.56"
-intellij_icon: intellij_icon.xpm
+intellij_path: idea-IC-223.8617.56
+intellij_icon: idea.png
 intellij_menu: intellij.desktop
-ins_bluej: BlueJ-linux-510.deb
+intellij_exec: idea.sh
+bluej_ins: BlueJ-linux-510.deb
+bluej_menu: bluej.desktop
+netbeans_ins: netbeans-17-bin.zip
+netbeans_exec: netbeans
+netbeans_path: netbeans
+netbeans_menu: netbeans.desktop
+netbeans_icon: nb/netbeans.png

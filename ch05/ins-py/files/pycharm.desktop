@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version = 223
-Type = Application
-Terminal = false
-Name = PyCharm
-Exec = /usr/local/bin/pycharm.sh
-Icon = /opt/pycharm-community-2022.3.2/pycharm_icon.xpm
-Categories = Applicaion;

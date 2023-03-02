@@ -26,4 +26,3 @@
   ansible.builtin.apt:
     pkg: openjdk-19-jdk
     state: present
-    

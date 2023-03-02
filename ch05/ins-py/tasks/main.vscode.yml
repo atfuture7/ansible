@@ -8,7 +8,7 @@
 # if check if the ln already exist
 - name: check if file ln already exists
   ansible.builtin.stat:
-    path: "/tmp/{{ vscode_ins }}"
+    path: "/usr/share/applications/{{ vscode_menu }}"
   register: vscode_st
 
 # create shortcut in menu  

@@ -1,7 +1,9 @@
 ---
 # defaults file for ins-py
 vscode_ins: code_1.75.1-1675893397_amd64.deb
+vscode_menu: code.desktop
 pycharm_ins: pycharm-community-2022.3.2.tar.gz
-pycharm_path: /opt/pycharm-community-2022.3.2
+pycharm_path: pycharm-community-2022.3.2
+pycharm_exec: pycharm.sh
 pycharm_menu: pycharm.desktop
-pycharm_icon: pycharm_icon.xpm
+pycharm_icon: pycharm.png

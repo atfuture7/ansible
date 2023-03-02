@@ -1,12 +1,12 @@
 ---
-# install ubuntu remote desktop
+# install ninja
 # when use include_tasks, task name in included files won't appear. debug helps
+# ref: https://ninja-build.org/
 - name: Show debug message
   debug:
-    msg: ”task install IDLE for python“
+    msg: ”task install ninja“
 
-- name: Install Ubuntu remote desktop
-  become: true
+- name: Install ninja“
   ansible.builtin.apt:
-    pkg: idle3
+    pkg: ninja-build
     state: present

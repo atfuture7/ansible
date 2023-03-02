@@ -1,0 +1,4 @@
+---
+# defaults file for ins-apps
+chrome_ins: google-chrome-stable_current_amd64.deb
+chrome_menu: google-chrome.desktop
