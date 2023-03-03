@@ -1,0 +1,12 @@
+---
+# something useful
+# ref: https://serverfault.com/questions/970108/how-to-access-the-ansible-getent-module-values-put-into-variable
+- name: Get user's home directory
+  getent:
+    database: passwd
+    key: "hsadm"
+    split: ":"
+
+- name: show data 
+  ansible.builtin.debug:
+    var: getent_passwd
